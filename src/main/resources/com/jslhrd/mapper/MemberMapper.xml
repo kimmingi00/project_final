@@ -1,0 +1,118 @@
+<!DOCTYPE mapper PUBLIC "-//mybagis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jslhrd.mapper.MemberMapper">
+ 
+   <select id="memberList" resultType="com.jslhrd.domain.MemberVO">
+   select * from member
+   </select>
+     <select id="adminList" resultType="com.jslhrd.domain.MemberVO">
+   select * from member where admin=1
+   </select>
+   <select id="newMemberList" resultType="com.jslhrd.domain.MemberVO">
+   select * from member order by regdate desc
+   </select>		
+	<insert id="memberWrite" >
+	
+	insert into member(id,name,pass,tel,email,favorite,admin,theme)values(#{id},#{name},#{pass},#{tel},#{email},null,0,null)
+	</insert>	
+	<update id="modifyTheme">
+	update member set theme=#{theme},favorite=#{favorite} where id=#{id}
+	</update>				
+		
+	<select id="userSearch" resultType="com.jslhrd.domain.MemberVO">
+	 select * from member where id=#{id}
+	</select>
+	
+	<select id="memberLoginCheck" resultType="string">
+	select pass from member where id = #{id}
+	</select>
+		
+	<select id="memberLogin" resultType="com.jslhrd.domain.MemberVO">
+		select * from member where id = #{id} and pass=#{pass}
+	</select>
+	
+	<!-- 예전 로그인 
+	<select id="memberLogin" resultType="com.jslhrd.domain.MemberVO">
+	   select pass from member where id=#{id}
+	</select>	-->	
+	
+	<select id="getMember" resultType="com.jslhrd.domain.MemberVO">
+	   select * from member where id=#{id}
+	</select>				
+	<select id="memberIdCheck" resultType="int">
+	   select count(*) from member where id=#{id}
+	</select>		
+	<update id="memberModify">
+	  update member set pass=#{pass},tel=#{tel},email=#{email} where id=#{id}
+	</update>			
+	<select id="memberIdSearch" resultType="com.jslhrd.domain.MemberVO"> 
+	 select id from member where name=#{name} and tel=#{tel}
+	</select>	
+	<select id="searchEmail" resultType="com.jslhrd.domain.MemberVO">
+	 select * from member where id=#{id}
+	</select>
+	<select id="memberFindpass" resultType="String">
+	 select pass from member where id=#{id} and email=#{email} 
+	</select>	
+	<update id="memberPassModify">
+	 update member set pass=#{pass} where id=#{id}
+	</update>
+	<delete id="memberDelete">
+	delete from member where id=#{id}
+	</delete>		
+	<update id="setAdmin">
+	update member set admin=1 where id=#{id}
+	</update>
+	<update id="deleteAdmin">
+	update member set admin=0 where id=#{id}
+	</update>
+ <!-- 사업자  -->
+   <select id="businessList" resultType="com.jslhrd.domain.BusinessVO">
+     select * from business
+   </select>
+	<insert id="businessWrite">
+	insert into business(b_id,b_name,b_pass,b_tel,b_email,b_rating)values(#{b_id}, #{b_name}, #{b_pass}, #{b_tel}, #{b_email}, 0)
+	</insert>			
+	<select id="businessSearch" resultType="com.jslhrd.domain.BusinessVO">	
+	select * from business where b_id=#{b_id}
+	</select>
+	<select id="getBusiness" resultType="com.jslhrd.domain.BusinessVO">	
+	select * from business where b_id=#{b_id}
+	</select>					
+	<delete id="businessDelete">
+	delete from business where b_id=#{b_id}
+	</delete>
+	<select id="businessLogin" resultType="com.jslhrd.domain.BusinessVO">	
+	select b_pass from business where b_id=#{b_id}
+	</select>	
+	<select id="businessIdSearch" resultType="com.jslhrd.domain.BusinessVO">	
+	select b_id from business where b_name=#{b_name} and b_tel=#{b_tel}
+	</select>			
+		
+	<select id="businessIdCheck" resultType="int">
+	   select count(*) from business where b_id=#{b_id}
+	</select>	
+	<select id="businessLoginCheck" resultType="string">
+	select b_pass from business where b_id = #{b_id}
+	</select>	
+	<update id="businessModify">
+	  update business set b_pass=#{b_pass},b_tel=#{b_tel},b_email=#{b_email} where b_id=#{b_id}
+	</update>	
+		
+    <select id="businessFindpass" resultType="String">
+	 select b_pass from business where b_id=#{b_id} and b_email=#{b_email}
+	</select>	
+	<update id="businessPassModify">
+	 update business set b_pass=#{b_pass} where b_id=#{b_id}
+	</update>
+	 <select id="productList" resultType="com.jslhrd.domain.ProductVO">
+     select * from product
+   </select>
+   <select id="unregitList" resultType="com.jslhrd.domain.UnRegitVO">
+     select * from unregit_user
+   </select>
+   <select id="sList" resultType="com.jslhrd.domain.ProductVO">
+  select * from product where p_customer like '%' || #{id} || '%'
+  
+   </select>
+</mapper>

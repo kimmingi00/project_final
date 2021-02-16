@@ -1,0 +1,78 @@
+<!DOCTYPE mapper PUBLIC "-//mybagis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jslhrd.mapper.ReservationMapper">
+	<select id="productWholeList" resultType="com.jslhrd.domain.ProductVO">
+		select * from product order by p_regdate desc
+	</select>
+	
+	<select id="productView" resultType="com.jslhrd.domain.ProductVO">
+		select * from product where p_idx = #{p_idx}
+	</select>
+	
+	<select id="productSelectList1" resultType="com.jslhrd.domain.ProductVO">
+		select * from ${table} where outplace = ${outplace}
+	</select>
+	
+	<select id="productSelectList2" resultType="com.jslhrd.domain.ProductVO">
+		select * from ${table} where place = ${place} 
+	</select>
+	
+	<insert id="productUpload">
+		insert into product(p_idx, b_id, p_title, p_contents, p_indate, p_outdate, p_in, p_out, p_reservpeople, p_maxpeople, p_price, theme, p_filename, p_readcnt, p_intime, p_outtime, p_spot, p_spottime, p_stopover, p_stoptime, place, outplace) values(
+				seq_p_idx.nextval, #{b_id}, #{p_title}, #{p_contents}, #{p_indate}, #{p_outdate}, #{p_in}, #{p_out}, 0, #{p_maxpeople}, #{p_price}, #{theme}, #{p_filename}, #{p_readcnt}, #{p_intime}, #{p_outtime}, #{p_spot}, #{p_spottime}, #{p_stopover}, #{p_stoptime}, #{place}, #{outplace})
+	</insert>
+	
+	<update id="plusReadcnt">
+		update product set p_readcnt = p_readcnt + 1 where p_idx = #{p_idx}
+	</update>
+	
+	<select id="customerSearch" parameterType="map" resultType="Integer" >
+		select * from product where p_customer like '%' || #{id} || '%' and p_idx = #{p_idx}
+	</select>
+	
+	<update id="reservProduct">
+		update product set p_reservpeople = p_reservpeople + #{reserv_cnt}, p_customer = p_customer||#{p_customer} where p_idx = #{p_idx}
+	</update>
+	
+	<update id="memReservNumAdd">
+		update member set reserv_num = reserv_num||#{reserv_num} where id = #{id}
+	</update>
+	
+	<select id="myTourList" resultType="com.jslhrd.domain.ProductVO">
+		select * from product where b_id = #{b_id} order by p_regdate desc
+	</select>
+	
+	<update id="reservPeopleUpdate">
+		update product set p_reservpeople = #{p_reservpeople} where p_idx = #{p_idx}
+	
+	</update>
+	
+	<update id="customerUpdate">
+		update product set p_customer = #{p_customer} where p_idx = #{p_idx}
+	</update>
+	
+	<select id="searchUnregit" resultType="int">
+		select count(*) from unregit_user where ur_email=#{ur_email}
+	</select>
+	
+	<insert id="insertUnRegit">
+		insert into unregit_user(ur_email, ur_name, ur_tel, ur_pass, regdate) values(
+								#{ur_email},#{ur_name},#{ur_tel},#{ur_pass},#{regdate})
+	</insert>
+	
+	<update id="reservUnregitProduct">
+		update product set p_reservpeople = p_reservpeople + #{reserv_cnt}, p_unregit = p_unregit||#{p_unregit} where p_idx = #{p_idx}
+	</update>
+	
+	<delete id="deleteUnRegit">
+		delete from unregit_user where ur_tel = #{ur_tel}
+	</delete>
+	
+	<select id="loginUnRegit" resultType="int">
+		select count(*) from unregit_user where ur_email = #{ur_email} and ur_pass = #{ur_pass}
+	</select>
+	
+	<update id="unregitUpdate">
+		update product set p_unregit = #{p_unregit} where p_idx = #{p_idx}
+	</update>
+</mapper>

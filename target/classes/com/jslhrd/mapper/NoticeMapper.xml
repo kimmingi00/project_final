@@ -1,0 +1,111 @@
+<!DOCTYPE mapper PUBLIC "-//mybagis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jslhrd.mapper.NoticeMapper">
+
+	<select id="noticeList" resultType="com.jslhrd.domain.NoticeBoardVO">
+		select * from notice order by idx desc
+	</select>
+	
+	<select id="noticeSelect" resultType="com.jslhrd.domain.NoticeBoardVO">
+		select * from notice where idx = #{idx}
+	</select>
+	
+	<insert id="noticeWrite">
+		insert into notice(idx,id,title,contents,filename)
+				values(board_notice_seq.nextval,#{id,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{contents,jdbcType=VARCHAR},#{filename})
+	</insert>
+	
+	<update id="noticeModify">
+		update notice set title=#{title}, contents=#{contents},filename=#{filename}
+			where idx=#{idx}
+	</update>
+	
+	<delete id="noticeDelete">
+		delete from notice where idx=#{idx}
+	</delete>
+	
+	<!-- search -->
+	<select id="noticeListSearch" resultType="com.jslhrd.domain.NoticeBoardVO">
+		select * from notice where
+		<choose>
+			<when test="search=='id'">
+				id like '%' || #{key} || '%'
+			</when>
+			<when test="search=='title'">
+				title like '%' || #{key} || '%'
+			</when>
+			<when test="search=='contents'">
+				contents like '%' || #{key} || '%'
+			</when>
+		</choose>
+		order by idx desc
+	</select>
+	
+	<!-- 페이지 처리용 전체카운트 -->
+	<select id="noticeCount" resultType="int">
+	select count(*) from notice
+	</select>
+	
+	<!-- 검색 없이 페이지 처리 -->
+	<select id="noticeListPage" resultType="com.jslhrd.domain.NoticeBoardVO">
+		<![CDATA[
+			select X.* from ( select rownum as rnum, A.* from 
+				(select * from notice order by idx desc ) A 
+					where rownum <= #{endpage}) X where X.rnum >= #{pagestart} 
+		]]>
+	</select>
+	
+	<!-- 검색 + 페이지처리 카운트 -->
+	<select id="noticeCountSearch" resultType="int">
+		select count(*) from notice where 
+		<choose>
+			<when test="search=='id'">
+				id like '%' || #{key} || '%'
+			</when>
+			<when test="search=='title'">
+				title like '%' || #{key} || '%'
+			</when>
+			<when test="search=='contents'">
+				contents like '%' || #{key} || '%'
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 검색 + 페이지처리 카운트 -->
+	<select id="noticeListPageSearch" resultType="com.jslhrd.domain.NoticeBoardVO">
+		select X.* from ( select rownum as rnum, A.* from 
+				(select * from notice order by idx desc ) A where 
+		<choose>
+			<when test="search=='id'">
+				id like '%' || #{key} || '%'
+			</when>
+			<when test="search=='title'">
+				title like '%' || #{key} || '%'
+			</when>
+			<when test="search=='contents'">
+				contents like '%' || #{key} || '%'
+			</when>
+		</choose>
+		<trim prefix="AND">
+		<![CDATA[
+			rownum <= #{endpage}) X where
+			]]>
+		</trim>
+		<choose>
+			<when test="search=='id'">
+				id like '%' || #{key} || '%'
+			</when>
+			<when test="search=='title'">
+				title like '%' || #{key} || '%'
+			</when>
+			<when test="search=='contents'">
+				contents like '%' || #{key} || '%'
+			</when>
+		</choose>
+		<trim prefix="AND">
+		<![CDATA[
+					X.rnum >= #{pagestart} 
+			]]>
+		</trim>
+	</select>
+</mapper>

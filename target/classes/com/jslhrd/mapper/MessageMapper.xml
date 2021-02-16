@@ -1,0 +1,32 @@
+<!DOCTYPE mapper PUBLIC "-//mybagis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jslhrd.mapper.MessageMapper">
+	<select id="myReceiveMsgList" resultType="com.jslhrd.domain.MessageVO">
+		select * from message where receive_id = #{receive_id} order by regdate desc
+	</select>
+
+	<select id="selectId" resultType="int">
+		select count(*) from member where id = #{id}
+	</select>
+	
+	<insert id="msgSend">
+		insert into message(m_idx, send_id, title, contents, receive_id, readcnt) values(
+					seq_m_idx.nextval, #{send_id}, #{title}, #{contents}, #{receive_id}, 0)
+	</insert>
+	
+	<select id="selectB_id" resultType="int">
+		select count(*) from business where b_id = #{id}
+	</select>
+	
+	<select id="mySendMsgList" resultType="com.jslhrd.domain.MessageVO">
+		select * from message where send_id = #{send_id} order by regdate desc
+	</select>
+	
+	<update id="msgReadcnt">
+		update message set readcnt = readcnt + 1 where m_idx = #{m_idx}
+	</update>
+	
+	<select id="msgView" resultType="com.jslhrd.domain.MessageVO">
+		select * from message where m_idx = #{m_idx}
+	</select>
+</mapper>
