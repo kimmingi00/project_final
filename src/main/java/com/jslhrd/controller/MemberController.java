@@ -55,8 +55,6 @@ public class MemberController {
 		int row = 0;
 		if (!id.equals("")) {
 			row = service.memberIdCheck(id);
-			// if(row == 0 ) {
-			// row = b_dao.userSearch(id);
 			model.addAttribute("id", id);
 			model.addAttribute("row", row);
 
@@ -120,7 +118,7 @@ public class MemberController {
 		if (pass == null) {
 
 			return "Contents/Member/login";
-		} else if (pass.equals(vo.getPass())) {// 로그인성공
+		} else if (pass.equals(vo.getPass())) {
 			String id = vo.getId();
 			MemberVO user = service.getMember(id);
 
@@ -248,7 +246,7 @@ public class MemberController {
 		if (b_pass == null) {
 
 			return "Contents/Member/login";
-		} else if (b_pass.equals(vo.getB_pass())) {// 로그인성공
+		} else if (b_pass.equals(vo.getB_pass())) {
 			String b_id = vo.getB_id();
 			BusinessVO user = service.getBusiness(b_id);
 

@@ -34,11 +34,7 @@ public class NoticeController {
 	@Setter(onMethod_=@Autowired)
 	private NoticeService service;
 	
-	/*@GetMapping("notice")
-	public String notice() {
-		log.info("notice......");
-		return "/Contents/Board/Notice/notice";
-	}*/
+	
 	
 	@GetMapping("board_notice_view")
 	public String noticeSelect(@RequestParam("idx") int idx,@RequestParam("page") int page,PageVO vo,Model model) {
@@ -51,24 +47,22 @@ public class NoticeController {
 	}
 	
 	
-	// 각 페이지별 검색 + 페이지 처리
 		@GetMapping("notice")
 		public String notice(@RequestParam("page") int page,PageVO vo,Model model) {
 			log.info("notice()..............");
 			String url = "notice";
-			int nowpage = 1; // 현재페이지
-			int maxlist = 10; // 페이지당 자료수
-			int totpage = 1; // 총 페이지 
-			int totcount = 0; // 전체 개수
+			int nowpage = 1; 
+			int maxlist = 10; 
+			int totpage = 1; 
+			int totcount = 0; 
 			
-			// 전체 데이터 카운트
-			if(vo.getKey() != null) { // 검색 했을 경우
+			
+			if(vo.getKey() != null) { 
 				totcount = service.noticeCountSearch(vo);
 			}else {
 				totcount = service.noticeCount();
 			}
 			
-			//총 페이지 수 계산
 			if(totcount % maxlist == 0) {
 				totpage = totcount / maxlist;
 			}else {
@@ -85,14 +79,11 @@ public class NoticeController {
 			}
 			
 			
-			// 시작페이지, 끝 페이지 계산
 			int pagestart = (nowpage-1) * maxlist + 1;
 			int endpage = nowpage * maxlist;
 			
-			// 리스트에 사용할 번호
 			int listcount = totcount - ((nowpage-1)* maxlist);
 			
-			// 페이지별 자료 추출
 			List list = null;
 			vo.setPagestart(pagestart);
 			vo.setEndpage(endpage);
@@ -120,7 +111,6 @@ public class NoticeController {
 			return "/Contents/Board/Notice/notice";
 		}
 		
-		// 검색 + 페이지처리
 			@PostMapping("notice")
 			public String noticeListSearch(@RequestParam("page") int page, PageVO vo,Model model) {
 				log.info("noticeListSearch()..............");
@@ -147,7 +137,6 @@ public class NoticeController {
 				int pagestart = (nowpage-1)*maxlist + 1;
 				int endpage = nowpage * maxlist;
 				int listcount = totcount - ((nowpage-1)*maxlist);
-				//PageVO vo = new PageVO();
 				vo.setPagestart(pagestart);
 				vo.setEndpage(endpage);
 				List list = service.noticeListPageSearch(vo);
@@ -166,7 +155,6 @@ public class NoticeController {
 				return "/Contents/Board/Notice/notice";
 			}
 	
-			// 공지사항 등록 폼
 			@GetMapping("board_write")
 			public String notice_Write(@RequestParam("page") int page,Model model) {
 				log.info("board_write()..............");
@@ -174,7 +162,6 @@ public class NoticeController {
 				return "/Contents/Board/Notice/board_notice_write";
 			}
 			
-			// 공지사항 등록 폼
 				@PostMapping("board_write_pro")
 				public String noticeWritePro(@RequestParam("page") int page,NoticeBoardVO vo, RedirectAttributes rttr) {
 					log.info("noticeWritePro()..............");
@@ -183,7 +170,6 @@ public class NoticeController {
 					return "redirect:/Notice/board_notice_write_pro?page="+page;
 				}
 				
-				// 공지사항 등록 결과처리(메시지 출력용)
 				@GetMapping("board_notice_write_pro")
 				public String board_Write_pro(@RequestParam("page") int page,Model model) {
 					log.info("boardWrite_pro()..............");
@@ -220,13 +206,11 @@ public class NoticeController {
 					return "/Contents/Board/Notice/board_notice_modify_pro";
 				}
 				
-				//삭제 폼
 				@GetMapping("board_notice_delete")
 				public String boardDelete(@ModelAttribute("idx") int idx) {
 					log.info("boardDelete()...");
 					return "Contents/Board/Notice/board_notice_delete";
 				}
-				//삭제 처리
 				@PostMapping("board_notice_delete_pro")
 				public String boardDeletePro(NoticeBoardVO vo, Model model) {
 					log.info("boardDelete()...");

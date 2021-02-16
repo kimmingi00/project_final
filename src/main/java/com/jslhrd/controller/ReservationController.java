@@ -249,12 +249,12 @@ public class ReservationController {
 			
 			int cnt = Integer.parseInt(multi.getParameter("cnt"));
 			
-			String p_title = multi.getParameter("p_title"); // ��ǰ �̸�
+			String p_title = multi.getParameter("p_title"); 
 			
-			String p_contents = multi.getParameter("p_contents"); // ��ǰ ����
-			String p_indate = multi.getParameter("p_indate"); // �����
-			String p_outdate = multi.getParameter("p_outdate"); // ������
-			String p_in = multi.getParameter("p_in"); //�����
+			String p_contents = multi.getParameter("p_contents"); 
+			String p_indate = multi.getParameter("p_indate"); 
+			String p_outdate = multi.getParameter("p_outdate"); 
+			String p_in = multi.getParameter("p_in");
 			String p_intime = multi.getParameter("p_intime");
 			String p_outtime = multi.getParameter("p_outtime");
 			String p_spot = multi.getParameter("p_spot");
@@ -280,11 +280,11 @@ public class ReservationController {
 			}
 			
 			
-			String p_out = multi.getParameter("p_out"); //������
-			int p_maxpeople = Integer.parseInt(multi.getParameter("p_maxpeople")); //�ִ� �ο�
-			int p_price = Integer.parseInt(multi.getParameter("p_price")); //����
-			String[] tema = multi.getParameterValues("thema"); //�׸�
-			String p_filename = multi.getFilesystemName("p_filename"); //���� �̸�
+			String p_out = multi.getParameter("p_out"); 
+			int p_maxpeople = Integer.parseInt(multi.getParameter("p_maxpeople")); 
+			int p_price = Integer.parseInt(multi.getParameter("p_price")); 
+			String[] tema = multi.getParameterValues("thema"); 
+			String p_filename = multi.getFilesystemName("p_filename"); 
 			int fcnt = Integer.parseInt(multi.getParameter("fcnt"));
 			
 			if(fcnt!=0) {
