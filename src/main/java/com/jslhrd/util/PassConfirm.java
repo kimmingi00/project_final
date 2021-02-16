@@ -14,16 +14,16 @@ import javax.mail.internet.MimeUtility;
 
 public class PassConfirm {
    public String connectEmail(String email){
-      String to1=email; // �������� ����ڰ� �Է��� �̸����ּ�
-      String host="smtp.gmail.com"; // smtp ����
-      String subject="�ӽ� ��й�ȣ ����"; // ������ ���� ����
-      String fromName="������"; // ������ �̸� ����
-      String from="alsrldkrk00"; // ������ ���(���۰���)
-      String passNum=PassConfirm.passNum();  // ������ȣ ���� ���� �߻��κ�
-      String content="�ӽ� ��й�ȣ ["+passNum+"]"; // �̸��� ���� ����
+      String to1=email; 
+      String host="smtp.gmail.com"; 
+      String subject="Please verify your email"; 
+      String fromName="Email verify"; 
+      String from="alsrldkrk00"; 
+      String passNum=PassConfirm.passNum();  
+      String content="Your verify code is ["+passNum+"]"; 
    
       
-        // SMTP �̿��ϱ� ���� �������ִ� ��������
+       
       try{
          Properties props=new Properties();
          props.put("mail.smtp.starttls.enable", "true");
@@ -40,7 +40,7 @@ public class PassConfirm {
             = Session.getInstance(props,new javax.mail.Authenticator(){
              protected PasswordAuthentication getPasswordAuthentication(){
                 return new PasswordAuthentication
-                                        ("alsrldkrk00","kmg920906@"); // gmail����
+                                        ("alsrldkrk00","kmg920906@"); 
              }
          });
       
@@ -48,12 +48,12 @@ public class PassConfirm {
          InternetAddress []address1 = {new InternetAddress(to1)};
          msg.setFrom(new InternetAddress
                       (from, MimeUtility.encodeText(fromName,"utf-8","B")));
-         msg.setRecipients(Message.RecipientType.TO, address1); // �޴»�� ����
-         msg.setSubject(subject); // ������
-         msg.setSentDate(new java.util.Date()); // ������ ��¥ ����
-         msg.setContent(content,"text/html; charset=utf-8"); // ���뼳��
+         msg.setRecipients(Message.RecipientType.TO, address1); 
+         msg.setSubject(subject); 
+         msg.setSentDate(new java.util.Date()); 
+         msg.setContent(content,"text/html; charset=utf-8"); 
       
-         Transport.send(msg); // ���Ϻ�����
+         Transport.send(msg); 
       }catch(MessagingException e){
          e.printStackTrace();
       }catch(Exception e){
@@ -62,7 +62,7 @@ public class PassConfirm {
       return passNum;
    }
 
-    // �����߻� function
+ 
    public static String authNum(){
       StringBuffer buffer=new StringBuffer();
       for(int i=0;i<=4;i++){
@@ -72,7 +72,7 @@ public class PassConfirm {
       return buffer.toString();
    }
    
-   // �ӽ� ��й�ȣ ���� (8~10)
+  
    
    public static String passNum() {
 	 String uuid=UUID.randomUUID().toString().substring(0,8);

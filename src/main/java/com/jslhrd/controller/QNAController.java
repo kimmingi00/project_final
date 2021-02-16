@@ -33,14 +33,6 @@ public class QNAController {
 	
 	private QNAService service;
 	
-	/*
-	@GetMapping("board_qna")
-	public String board_qna() {
-		logger.info("board_qna......");
-		return "/Contents/Board/Q&A/board_qna";
-	}*/
-	
-	//페이지별 목록
 	@GetMapping("board_qna")
 	public String boardList(@RequestParam("page") int page,Model model,PageVO vo) {
 		
@@ -51,10 +43,8 @@ public class QNAController {
 		int totpage = 1;
 		int totcount = 0;
 		
-		// 총 글 수 카운트
 		totcount = service.boardCount();
-		
-		// 총 페이지 계산
+
 		if(totcount % maxlist == 0) {
 			totpage = totcount/maxlist;
 		}else {
@@ -68,11 +58,9 @@ public class QNAController {
 			nowpage = totpage;
 		}
 		
-		//현재 페이지 시작번호
 		int pagestart = (nowpage-1)*maxlist+1;
 		int endpage = nowpage * maxlist;
 		
-		//list.jsp에서 사용할 번호
 		int listcount = totcount-((nowpage-1)*maxlist);
 		
 		vo.setPagestart(pagestart);
@@ -97,11 +85,9 @@ public class QNAController {
 		int totpage = 1;
 		int totcount = 0;
 		
-		// 총 글 수 카운트
 		
 		totcount = service.boardCountSearch(vo);
 		
-		// 총 페이지 계산
 		if(totcount % maxlist == 0) {
 			totpage = totcount/maxlist;
 		}else {
@@ -130,7 +116,6 @@ public class QNAController {
 		model.addAttribute("totpage",totpage);
 		model.addAttribute("listcount",listcount);
 		model.addAttribute("list",service.boardListSearch(vo));
-		//model.addAttribute("listPage",PageIndex.pageList(nowpage, totpage, url, addtag));
 		model.addAttribute("listPage",PageIndex.pageListHan(nowpage, totpage, url, vo.getSearch(),vo.getKey()));
 		return "/Contents/Board/Q&A/board_qna";
 	}
@@ -171,7 +156,6 @@ public class QNAController {
 		
 	}
 	
-	// 등록폼
 		@GetMapping("board_qna_write")
 		public String board_qna_write(QnaBoardVO vo,@RequestParam("page") int page,Model model) {
 			log.info("board_qna_write()....");
@@ -179,7 +163,6 @@ public class QNAController {
 			return "/Contents/Board/Q&A/board_qna_write";
 		}
 		
-		//등록처리
 		@PostMapping("board_qna_write")
 		public String board_qna_write(QnaBoardVO vo,HttpServletRequest request,@RequestParam("page") int page,RedirectAttributes rttr) {
 			log.info("board_qna_write(QnaBoardVO vo)....");
@@ -202,7 +185,7 @@ public class QNAController {
 				vo.setQ_re_seq(indent+1);
 				System.out.println("@@@@@@@id"+vo.getId());
 				
-			}else { //처음 작성된 글
+			}else { 
 				vo.setQ_parent(idx);
 				vo.setQ_re_lev(0);
 				vo.setQ_re_seq(0);
@@ -215,7 +198,6 @@ public class QNAController {
 			return "redirect:/Q&A/board_qna_write_pro?page="+page;
 		}
 		
-		// 공지사항 등록 결과처리(메시지 출력용)
 		@GetMapping("board_qna_write_pro")
 		public String board_qna_write_pro(@RequestParam("page") int page,Model model) {
 			log.info("boardWrite_pro()..............");
@@ -223,7 +205,6 @@ public class QNAController {
 			return "/Contents/Board/Q&A/board_qna_write_pro";
 		}
 		
-		//reply
 		@GetMapping("board_qna_reply")
 		public String board_qna_reply(@RequestParam("idx") int idx,@RequestParam("page") int page,Model model) {
 			log.info("boardReply()....");
@@ -237,7 +218,6 @@ public class QNAController {
 		
 		
 		
-		//수정폼
 		@GetMapping("board_qna_modify")
 		public String boardModify(@RequestParam("idx") int idx,Model model,@RequestParam("page") int page) {
 			QnaBoardVO vo = service.boardSelect(idx);
@@ -247,7 +227,6 @@ public class QNAController {
 		}
 		
 		
-		//수정처리
 				@PostMapping("board_qna_modify")
 				public String boardModifyPro(QnaBoardVO vo,RedirectAttributes rttr,@RequestParam("page") int page,@RequestParam("idx") int idx) {
 					log.info("Controller : boardModifyPro()....");
@@ -267,13 +246,11 @@ public class QNAController {
 					return "/Contents/Board/Q&A/board_qna_modify_pro";
 				}
 				
-				//삭제 폼
 				@GetMapping("board_qna_delete")
 				public String board_qna_delete(@ModelAttribute("q_idx") int q_idx) {
 					log.info("board_qna_delete()...");
 					return "Contents/Board/Q&A/board_qna_delete";
 				}
-				//삭제 처리
 				@PostMapping("board_qna_delete_pro")
 				public String board_qna_delete_pro(QnaBoardVO vo, Model model) {
 					log.info("board_qna_delete_pro()...");

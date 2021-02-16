@@ -1,12 +1,6 @@
 package com.jslhrd.domain;
 
 public class NoticeBoardVO {
-//	idx      number         NOT NULL,
-//	id       VARCHAR2(20)   NOT NULL, 
-//	title    VARCHAR2(100)  NOT NULL, 
-//	contents VARCHAR2(2000) NOT NULL, 
-//	filename VARCHAR2(1000) NULL,    
-//	regdate  DATE          DEFAULT sysdate NOT NULL
 	private int idx;
 	private String id;
 	private String title;

@@ -1,14 +1,6 @@
 package com.jslhrd.domain;
 
 public class QnaBoardVO {
-//	q_idx      number         NOT NULL, 
-//	id         VARCHAR2(20)   NOT NULL,
-//	q_contents varchar2(2000) NOT NULL, 
-//	q_title    varchar2(200)  NOT NULL,
-//	filename   varchar2(255)  NULL,    
-//	q_reply    number         NOT NULL, 
-//	q_regdate  DATE           DEFAULT sysdate NOT NULL, 
-//	q_readcnt  number         NOT NULL 
 	
 	private int q_idx;
 	private String id;

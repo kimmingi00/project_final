@@ -28,7 +28,6 @@ public class DBConn {
 		return conn;
 	}
 	
-	// select���� ���� ���
 	public static void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
 		try {
 			rs.close();
@@ -40,7 +39,6 @@ public class DBConn {
 	}
 	
 	
-	// select ��� x
 	public static void close(Connection conn, PreparedStatement pstmt) {
 		try {
 			
