@@ -240,7 +240,7 @@ public class ReservationController {
 		
 		int sizeLimit = 4*1024*1024; 
 		int row = 0;
-		/*
+		
 		try {
 	
 			MultipartRequest multi = new MultipartRequest(request, path, sizeLimit, 
@@ -332,7 +332,7 @@ public class ReservationController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-	*/
+	
 		model.addAttribute("row", row);
 		
 		return "/Contents/Reservation/R_Business/upload_ok";

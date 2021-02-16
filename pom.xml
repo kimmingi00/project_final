@@ -71,6 +71,11 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.servlets</groupId>
+			<artifactId>cos</artifactId>
+			<version>05Nov2002</version>			
+		</dependency>
 		<!-- Hikari CP -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
