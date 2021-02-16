@@ -1,6 +1,5 @@
 package com.jslhrd.controller;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -236,11 +235,10 @@ public class ReservationController {
 		logger.info("uploadServicePro......");
 		
 		String path = "C:\\Users\\alsrl\\eclipse-workspace\\Spring_Project\\Project_final\\src\\main\\webapp\\resources\\img\\product_img";
-	//	C:\Users\alsrl\eclipse-workspace\Spring_Project\Project_final\src\main\webapp\resources\img\product_img
 		
 		String encType = "utf-8";
 		
-		int sizeLimit = 4*1024*1024; //�ִ� 4MB
+		int sizeLimit = 4*1024*1024; 
 		int row = 0;
 		
 		try {

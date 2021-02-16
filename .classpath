@@ -27,5 +27,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="lib" path="C:/Users/alsrl/eclipse-workspace/Spring_Project/Project_final/src/main/webapp/WEB-INF/lib/cos.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/cos.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

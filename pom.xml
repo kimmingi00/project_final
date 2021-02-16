@@ -101,7 +101,9 @@
     		<artifactId>log4j-api</artifactId>
     		<version>2.0.1</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/servlets.com/cos -->
+		
+		
 		<dependency>
   		  <groupId>org.apache.logging.log4j</groupId>
   		  <artifactId>log4j-core</artifactId>
