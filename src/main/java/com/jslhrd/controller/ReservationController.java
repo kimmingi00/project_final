@@ -17,11 +17,11 @@ import com.jslhrd.domain.ProductVO;
 import com.jslhrd.domain.UnRegitVO;
 import com.jslhrd.service.ReservationServiceImplement;
 import com.jslhrd.util.EmailConfirm;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+
+
 
 @Controller
 @RequestMapping("/Reservation/")
@@ -240,8 +240,9 @@ public class ReservationController {
 		
 		int sizeLimit = 4*1024*1024; 
 		int row = 0;
-		
+		/*
 		try {
+	
 			MultipartRequest multi = new MultipartRequest(request, path, sizeLimit, 
 					encType, new DefaultFileRenamePolicy());
 			
@@ -331,7 +332,7 @@ public class ReservationController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-	
+	*/
 		model.addAttribute("row", row);
 		
 		return "/Contents/Reservation/R_Business/upload_ok";
